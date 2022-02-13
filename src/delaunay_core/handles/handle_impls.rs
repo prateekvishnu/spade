@@ -4,6 +4,7 @@ use super::handle_defs::*;
 use super::iterators::CircularIterator;
 use super::iterators::NextBackFn;
 use super::public_handles::*;
+use crate::CdtEdge;
 use crate::{HasPosition, LineSideInfo, Point2};
 use num_traits::{Float, One, Signed};
 use std::cmp::Ordering;
@@ -412,6 +413,13 @@ where
     }
 }
 
+impl<'a, V, DE, UE, F> DirectedEdgeHandle<'a, V, DE, CdtEdge<UE>, F> {
+    /// Returns `true` if this edge is a constraint edge.
+    pub fn is_constraint_edge(self) -> bool {
+        self.as_undirected().is_constraint_edge()
+    }
+}
+
 impl FixedUndirectedEdgeHandle {
     /// Converts this directed edge into an undirected edge handle.
     ///
@@ -528,6 +536,13 @@ where
     pub fn distance_2(&self, query_point: Point2<V::Scalar>) -> V::Scalar {
         let [p1, p2] = self.positions();
         math::distance_2(p1, p2, query_point)
+    }
+}
+
+impl<'a, V, DE, UE, F> UndirectedEdgeHandle<'a, V, DE, CdtEdge<UE>, F> {
+    /// Returns `true` if this edge is a constraint edge.
+    pub fn is_constraint_edge(self) -> bool {
+        self.data().is_constraint_edge()
     }
 }
 

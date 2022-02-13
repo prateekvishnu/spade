@@ -187,7 +187,7 @@ where
     }
 
     fn is_defined_legal(&self, edge: FixedUndirectedEdgeHandle) -> bool {
-        self.s.undirected_edge(edge).data().is_constraint_edge()
+        self.is_constraint_edge(edge)
     }
 
     fn handle_legal_edge_split(&mut self, handles: [FixedUndirectedEdgeHandle; 2]) {
@@ -250,7 +250,7 @@ where
     /// Checks if two vertices are connected by a constraint edge.
     pub fn exists_constraint(&self, from: FixedVertexHandle, to: FixedVertexHandle) -> bool {
         self.get_edge_from_neighbors(from, to)
-            .map(|e| e.as_undirected().data().is_constraint_edge())
+            .map(|e| e.is_constraint_edge())
             .unwrap_or(false)
     }
 
@@ -281,9 +281,7 @@ where
         mut line_intersection_iterator: LineIntersectionIterator<V, DE, CdtEdge<UE>, F>,
     ) -> bool {
         line_intersection_iterator.any(|intersection| match intersection {
-            Intersection::EdgeIntersection(edge) => {
-                edge.as_undirected().data().is_constraint_edge()
-            }
+            Intersection::EdgeIntersection(edge) => edge.is_constraint_edge(),
             _ => false,
         })
     }
@@ -577,7 +575,7 @@ where
         let num_undirected_edges = self
             .s
             .undirected_edges()
-            .filter(|e| e.data().is_constraint_edge())
+            .filter(|e| e.is_constraint_edge())
             .count();
 
         assert_eq!(num_undirected_edges, self.num_constraints());
