@@ -5,7 +5,7 @@ project: spade
 target: spade
 
 # Base image to run the binary in.
-image: ghcr.io/prateekvishnu/subtle:latest
+image: ghcr.io/prateekvishnu/spade:latest
 
 # List of commands used to test the target
 cmds:
