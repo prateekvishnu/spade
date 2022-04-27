@@ -7,6 +7,9 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
+  bulk_load_fuzz_MAYHEMFILE: bulk_load_fuzz.mayhemfile
+  bulk_load_int_fuzz_MAYHEMFILE: bulk_load_int_fuzz.mayhemfile
+  
 
 jobs:
   build:

@@ -2,10 +2,10 @@
 project: spade
 
 # Target name (should be unique within the project)
-target: spade
+target: bulk_load_fuzz
 
 # Base image to run the binary in.
-image: ghcr.io/prateekvishnu/spade:latest
+# image: ghcr.io/prateekvishnu/spade:latest
 
 # List of commands used to test the target
 cmds:
@@ -13,7 +13,6 @@ cmds:
     # Command used to start the target, "@@" is the input file
     # (when "@@" is omitted Mayhem defaults to stdin inputs)
     - cmd: /bulk_load_fuzz
-    - cmd: /bulk_load_int_fuzz
 
  
 
